@@ -11,10 +11,6 @@
     zephyr-nix.inputs.zephyr.follows = "zephyr";
     zephyr-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # Devicetree linter; use my fork for nix-package and ZMK-specific tweaks.
-    dts-linter.url = "github:urob/dts-linter/zmk";
-    dts-linter.inputs.nixpkgs.follows = "nixpkgs";
-
     # West manifest locking; skipping the flake to build its package.nix with
     # our own nixpkgs and python package set.
     pin-west.url = "github:urob/pin-west";
@@ -32,8 +28,11 @@
         keymap-drawer = pkgs.python3Packages.callPackage ./nix/keymap-drawer.nix {};
         pin-west = pkgs.python3Packages.callPackage "${inputs.pin-west}/package.nix" {};
         dts-format = pkgs.callPackage ./nix/dts-format.nix {
-          # dts-linter = inputs.dts-linter.packages.${system}.dev;  # Use latest dts-lsp
-          dts-linter = inputs.dts-linter.packages.${system}.default;  # Use dts-lsp bundled with dts-linter
+          dts-linter = pkgs.callPackage ./nix/dts-linter.nix {
+            # Uncomment to build against the pinned dts-lsp instead of the
+            # server bundled with dts-linter.
+            # dts-lsp-server = pkgs.callPackage ./nix/dts-lsp-server.nix {};
+          };
         };
       in {
         default = pkgs.mkShellNoCC {
@@ -71,7 +70,11 @@
           shellHook = ''
             export ZMK_BUILD_DIR=$(pwd)/.build;
             export ZMK_SRC_DIR=$(pwd)/zmk/app;
-          '' + (if pkgs.stdenv.isLinux then
+          ''
+          # Expose libatomic to non-Nix binaries, required by the dts-linter
+          # pre-commit hook. This is linux-only, in Darwin atomics live in
+          # the compiler runtime and LD_LIBRARY_PATH is linux-only anyhow.
+          + (if pkgs.stdenv.isLinux then
             let libatomic = pkgs.runCommand "libatomic" {} ''
               mkdir -p $out/lib
               cp -d ${pkgs.stdenv.cc.cc.lib}/lib/libatomic.so* $out/lib/

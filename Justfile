@@ -181,7 +181,7 @@ test $testpath *FLAGS:
     set -euo pipefail
     testcase=$(basename "$testpath")
     build_dir="{{ build / "tests" / '$testcase' }}"
-    config_dir="{{ '$(pwd)' / '$testpath' }}"
+    config_dir=$(realpath "$testpath")
     cd {{ justfile_directory() }}
 
     if [[ "{{ FLAGS }}" != *"--no-build"* ]]; then

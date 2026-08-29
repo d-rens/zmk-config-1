@@ -133,7 +133,7 @@ tested](https://github.com/urob/zmk-config/actions/workflows/test-build-env.yml)
 ## Part II: The keymap
 
 <img src="./draw/overview.svg" alt="Keymap layout" width="100%" /><br />
-([Click here](https://raw.githubusercontent.com/urob/zmk-config/refs/heads/main/draw/base.svg) for
+([Click here](./draw/base.svg) for
 a breakdown by layer – powered by [keymap-drawer](https://github.com/caksoylar/keymap-drawer).)
 
 All boards share the same 34-key base keymap: each `<board>.keymap` is a small adapter that places

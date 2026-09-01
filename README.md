@@ -32,7 +32,7 @@ a nix environment that sets itself up automagically whenever I enter the workspa
 - [Leader key](#leader-key) sequences for Unicode input and system commands
 - [Arrow cluster](#navigation-cluster) doubling as <kbd>home</kbd>, <kbd>end</kbd>,
   <kbd>begin/end of document</kbd> on long-press
-- Shifted actions that make sense: <kbd>, ↦ ;</kbd>, <kbd>. ↦ :</kbd> and <kbd>? ↦ !</kbd>
+- Shifted actions that make sense: <kbd>, ↦ ;</kbd> and <kbd>. ↦ :</kbd>
 - Simplified Devicetree syntax using helper macros from
   [zmk-helpers](https://github.com/urob/zmk-helpers)
 
@@ -142,11 +142,11 @@ keys.
 
 ### Layers at a glance
 
-The keymap consists of six layers on top of a Colemak-DH base:
+The keymap consists of six layers on top of a Semimak-JQ base:
 
 | Layer     | Access                                               | Contents                                                                                                             |
 | --------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| **Base**  | default                                              | Colemak-DH with homerow mods                                                                                         |
+| **Base**  | default                                              | Semimak-JQ with homerow mods                                                                                         |
 | **Nav**   | hold left thumb (Space)                              | Arrow cluster (hold for word/page navigation), Alt-Tab swapper, Alt-F4 shortcut, `CANCEL` all layers and smart-modes |
 | **Fn**    | hold left thumb (Return)                             | F-keys (mirroring the numpad layout), media controls, desktop shortcuts                                              |
 | **Num**   | tap Smart-Num for Numword, hold for momentary        | Numpad on the left half                                                                                              |
